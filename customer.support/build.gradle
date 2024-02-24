@@ -1,0 +1,95 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'jacoco'
+}
+
+group = 'rabbitmq.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation 'org.springframework.amqp:spring-rabbit-test'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:mysql'
+	testImplementation 'org.testcontainers:rabbitmq'
+
+	// Spock
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.apache.groovy:groovy:4.0.10'
+	testImplementation 'org.apache.groovy:groovy-json:4.0.10'
+	testImplementation 'org.apache.groovy:groovy-xml:4.0.10'
+	testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
+	testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
+	testImplementation ('com.athaydes:spock-reports:2.4.0-groovy-4.0') {
+		transitive = false
+	}
+
+	//Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'or.projectlombok:lombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok:lombok'
+
+
+	//MapStruct
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+	testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
+}
+
+bootJar {
+	archiveFileName = 'app-jar'
+}
+
+springBoot {
+	buildInfo()
+}
+
+test {
+	useJUnitPlatform()
+	systemProperty 'file.encoding', 'utf-8'
+	systemProperty 'user.language', 'en'
+}
+
+jacocoTestReport {
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, excludes: [
+					'**/*IntegrationTest.class',
+					'**/*Test.class'
+			])
+		}))
+	}
+}
+
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
