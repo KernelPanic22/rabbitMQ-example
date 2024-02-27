@@ -3,13 +3,14 @@ plugins {
 	id 'org.springframework.boot' version '3.2.3'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'jacoco'
+	id 'org.springdoc.openapi-gradle-plugin' version '1.6.0'
 }
 
 group = 'rabbitmq.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '21'
 }
 
 configurations {
@@ -50,16 +51,24 @@ dependencies {
 	}
 
 	//Lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testCompileOnly 'or.projectlombok:lombok:lombok'
-	testAnnotationProcessor 'org.projectlombok:lombok:lombok'
+	compileOnly 'org.projectlombok:lombok:1.18.30'
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+	testCompileOnly 'org.projectlombok:lombok:1.18.30'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
 
 	//MapStruct
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 	testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
+	// OpenApi
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.1.0'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+	//aop
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
+	implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.1'
 
 }
 
