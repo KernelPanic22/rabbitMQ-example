@@ -22,7 +22,7 @@ public class PublishEventAspect {
   }
 
   @AfterReturning(pointcut = "@annotation(publishEvent)", returning = "result")
-  public void publishEvent(JoinPoint joinPoint, Object result, PublishEvent publishEvent) {
+  public void publishEvent(Object result, PublishEvent publishEvent) {
     var eventType = publishEvent.eventType();
     var routingKey = publishEvent.routingKey();
     log.info("Publish event {} for routing-key {}", eventType, routingKey);

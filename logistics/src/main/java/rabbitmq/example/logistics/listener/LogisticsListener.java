@@ -10,6 +10,7 @@ import rabbitmq.example.logistics.dto.LogisticsDto;
 @Slf4j
 public class LogisticsListener {
 
+  // solo se configura el listener con la queue que ya fue creada por customer-support
   @RabbitListener(queues = "${spring.rabbitmq.queues.customer-queue.name}")
   public void processLogistics(EventWrapper<LogisticsDto> eventWrapper) {
     log.info("Received message: {}", eventWrapper);

@@ -8,6 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import rabbitmq.example.customer.support.enums.EventType;
 
+// documentacion de javaDoc
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -17,3 +18,5 @@ public @interface PublishEvent {
 
   String routingKey();
 }
+
+

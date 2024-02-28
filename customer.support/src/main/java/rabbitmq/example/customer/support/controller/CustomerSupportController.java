@@ -21,6 +21,7 @@ public class CustomerSupportController {
     this.customerSupportService = customerSupportService;
   }
 
+  // Controller nada muy loco un simple post :)
   @PostMapping("/logistics")
   public void submitLogistics(@RequestBody LogisticsRequest logisticsRequest) {
     log.info("Submit logistics");
